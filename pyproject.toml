@@ -26,5 +26,5 @@ eda = [
 test = [
     "pytest>=8.3.4",
 ]
-[project.sript]
+[project.scripts]
 eda-nijin = "eda_nijin.cli:group_by_count"
