@@ -1,5 +1,7 @@
 # eda-nijin
 
+-[image](https://i.lgtm.fun/2vtu.png)
+
 ### DEV
 ```bash
 $ source .venv/bin/activate
