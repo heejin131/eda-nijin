@@ -1,11 +1,11 @@
 [project]
 name = "eda-nijin"
-version = "0.3.1"
+version = "0.3.2"
 description = "Default template for PDM package"
 authors = [
     {name = "heejin131", email = "journeyjean131@gmail.com"},
 ]
-dependencies = ["pandas>=2.2.3", "president-speech>=0.9.1"]
+dependencies = ["pandas>=2.2.3", "president-speech>=0.9.1", "typer>=0.15.1"]
 requires-python = ">=3.10"
 readme = "README.md"
 license = {text = "MIT"}
@@ -27,4 +27,6 @@ test = [
     "pytest>=8.3.4",
 ]
 [project.scripts]
-eda-nijin = "eda_nijin.cli:group_by_count"
+eda-nijin = "eda_nijin.cli:entry_point"
+
+
