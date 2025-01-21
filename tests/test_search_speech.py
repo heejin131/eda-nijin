@@ -3,7 +3,7 @@ import pandas as pd
 
 def test_search_exception():
     row_count = 13
-    df =  group_by_count(keyword="자유", asc=True, rcnt=row_count)
+    df = group_by_count(keyword="자유", asc=True, rcnt=row_count)
 
     #assert
     assert isinstance(df, pd.DataFrame)
@@ -15,9 +15,9 @@ def test_정열_및_행수제한():
     is_asc = True
 
     #when
-    df =  group_by_count(keyword = "자유", asc=is_asc, rcnt=row_count)
+    df = group_by_count(keyword = "자유", asc=is_asc, rcnt=row_count)
     
     #then 
     assert isinstance(df, pd.DataFrame)
-    assert df.iloc[0]["president"] == "박정희"
+    assert df.iloc[0]["president"] == "윤보선"
     assert len(df) == row_count 
