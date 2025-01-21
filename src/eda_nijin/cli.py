@@ -3,6 +3,9 @@ import pandas as pd
 import typer
 
 def group_by_count(keyword: str):
+    # TODO: ascendong, 출력 rows size
+    # pytest 코드를 만들어보세요.
+    # import this <- 해석해보세요.
     data_path = get_parquet_full_path()
     df=pd.read_parquet(data_path)
     fdf = df[df['speech_text'].str.contains(keyword, case=False)]
