@@ -1,5 +1,6 @@
 from eda_nijin.cli import group_by_count
 import pandas as pd
+import pytest
 
 presidents_speeches = {
     "박정희": 513,
@@ -24,7 +25,8 @@ def test_search_exception():
     assert isinstance(df, pd.DataFrame)
     assert len(df) < row_count
 
-def test_정열_및_행수제한():
+@pytest.mark.parametrize("is_asc, president", [(), ()])
+def test_정열_및_행수제한(a,b):
     #given
     row_count = 3
     is_asc = True
@@ -36,6 +38,7 @@ def test_정열_및_행수제한():
     assert isinstance(df, pd.DataFrame)
     assert df.iloc[0]["president"] == "윤보선"
     assert len(df) == row_count 
+    assert eval(is_asc) == president
 
 def test_default_args():
     #given 
@@ -67,3 +70,25 @@ def test_all_count():
     for p_name, s_count in presidents_speeches.items():
         president_row = df[df["president"] == p_name]
         assert president_row.iloc[0]["count"] == s_count
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
