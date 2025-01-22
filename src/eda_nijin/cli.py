@@ -2,10 +2,7 @@ from president_speech.db.parquet_interpreter import get_parquet_full_path
 import pandas as pd
 import typer
 
-def group_by_count(keyword:str, asc:bool=True, rcnt:int=12) -> pd.DataFrame:
-    # TODO: ascendong, 출력 rows size
-    # pytest 코드를 만들어보세요.
-    # import this <- 해석해보세요.
+def group_by_count(keyword:str, asc:bool=False, rcnt:int=12) -> pd.DataFrame:
     data_path = get_parquet_full_path()
     df = pd.read_parquet(data_path)
     fdf = df[df['speech_text'].str.contains(keyword, case=False)]
@@ -14,7 +11,7 @@ def group_by_count(keyword:str, asc:bool=True, rcnt:int=12) -> pd.DataFrame:
     rdf = sdf.head(rcnt)
     return rdf
 
-def print_group_by_count(keyword:str, asc:bool=True, rcnt:int=12):
+def print_group_by_count(keyword:str, asc:bool=False, rcnt:int=12):
     rdf = group_by_count(keyword, asc, rcnt)
     print(rdf.to_string(index=False))
     print(f"총 합계:{len(rdf)}")

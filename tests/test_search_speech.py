@@ -21,3 +21,22 @@ def test_정열_및_행수제한():
     assert isinstance(df, pd.DataFrame)
     assert df.iloc[0]["president"] == "윤보선"
     assert len(df) == row_count 
+
+def test_default_args():
+    #given 
+    row_count = 3
+    is_asc = True
+
+    #when
+    df = group_by_count(keyword = "자유")
+
+    #then
+    assert isinstance(df, pd.DataFrame)
+    assert len(df) == 12
+    assert df.iloc[0]["president"] == "박정희"
+    assert df.iloc[0]["count"] == 513
+    assert df.iloc[1]["count"] == 438
+
+
+
+
