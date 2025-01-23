@@ -25,25 +25,24 @@ def test_search_exception():
     assert isinstance(df, pd.DataFrame)
     assert len(df) < row_count
 
-@pytest.mark.parametrize("is_asc, president", [(), ()])
-def test_정열_및_행수제한(a,b):
+@pytest.mark.parametrize("is_asc, president", [(True,"윤보선"), (False, "박정희")])
+def test_sort(is_asc, president):
     #given
     row_count = 3
-    is_asc = True
+    #is_asc = True
 
     #when
     df = group_by_count(keyword = "자유", asc=is_asc, rcnt=row_count)
     
     #then 
     assert isinstance(df, pd.DataFrame)
-    assert df.iloc[0]["president"] == "윤보선"
+    assert df.iloc[0]["president"] == president
     assert len(df) == row_count 
-    assert eval(is_asc) == president
 
 def test_default_args():
     #given 
     row_count = 3
-    is_asc = True
+    is_asc = False
 
     #when
     df = group_by_count(keyword = "자유")
@@ -71,7 +70,19 @@ def test_all_count():
         president_row = df[df["president"] == p_name]
         assert president_row.iloc[0]["count"] == s_count
 
+def test_all_count_iat():
+    #given
+    #global
 
+    #when
+    df = group_by_count("자유")
+
+   #then
+    assert isinstance(df, pd.DataFrame)
+    assert len(df) == 12
+
+    for i, (p_name, s_count) in enumerate(presidents_speeches.items()):
+        assert df.iat[i,1] == s_count
 
 
 
