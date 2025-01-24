@@ -86,17 +86,45 @@ def test_all_count_iat():
 
 def test_all_count_Keyword_sum():
     #given
-    #global
+    #global dict
 
     #when
     df = group_by_count(keyword="자유",
-                        keyword_sum=False
+                        keyword_sum=True
                         )
-    keyword_sum = sum(keyword_count)
-    keyword_sum = sum.keyword
     
     #then
     assert isinstance(df, pd.DataFrame)
     assert "keyword_sum" in df.columns
     #count 보다 keyword_sum이 크거나 같음을 확인 assert
-    assert "keyword_sum" >= "count"
+    # 1
+    assert all(df["keyword_sum"] >= df["count"])
+
+    # 2 
+    for row in df.itertuples():
+        assert row.keyword_sum >= row.count
+
+    # 3
+    for i in range(len(df)):
+        keyword_sum = df.iloc[i,df.columns.get_loc("keyword_sum")]
+        count = df.iloc[i, df.columns.get_loc("count")]
+        assert keyword_sum >= count
+
+    # 4
+    for i in range(len(df)):
+        keyword_sum = df.loc[i, "keyword_sum"]
+        count = df.loc[i, "count"]
+        assert keyword_sum >= count
+
+    #5
+    for i in range(len(df)):
+        keyword_sum = df.iat[i,2]
+        count = df.iat[i,1]
+        assert keyword_sum >= count
+
+
+
+
+
+
+
