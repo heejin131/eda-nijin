@@ -1,6 +1,8 @@
 from president_speech.db.parquet_interpreter import get_parquet_full_path
 import pandas as pd
 import typer
+from tqdm import tqdm
+import time
 
 def add_keyword_count(df: pd.DataFrame, keyword: str) -> pd.DataFrame:
     """
@@ -31,18 +33,32 @@ def group_by_count(keyword:str, asc:bool=False, rcnt:int=12, keyword_sum:bool=Fa
     return rdf
 
 def print_group_by_count(keyword:str, asc:bool=False, rcnt:int=12, keyword_sum:bool=False):
-    rdf = group_by_count(keyword, asc, rcnt,keyword_sum)
-    print(rdf.to_string(index=False))
-    print(f"총 합계:{len(rdf)}")
-  
+    df = group_by_count(keyword, asc, rcnt,keyword_sum)
+    # 프로그레스바 추가 - df의 컬럼숫자 * row숫자
+    r = len(df.columns) * len(df)
+    for i in tqdm(range(r)):
+        time.sleep(0.05)
+        
+    from tabulate import tabulate
+    #if keyword_sum:
+     # t = tabulate(df, headers=["president","count","ks"], tablefmt='github')
+    #else:
+     # t = tabulate(df, headers=["president","count"], tablefmt='github')
+    
+    hs = ["president", "count"]
+    if keyword_sum:
+       hs.append(" keyword_sum") 
+
+    t = tabulate(df, headers = hs, tablefmt='double_outline')
+    #print(df.to_string(index=False))
+    print(t)
+    print(f"총 합계:{len(df)}")
+
+    import termplotlib as tpl
+    fig = tpl.figure()
+    fig.barh(df['count'], df['president'], force_ascii=True)
+    fig.show()
+
 def entry_point():
     typer.run(print_group_by_count)
-
-
-
-
-
-
-
-
 
